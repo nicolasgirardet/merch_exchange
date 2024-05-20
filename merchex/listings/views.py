@@ -13,7 +13,13 @@ def band_detail(request, band_id):
     return render(request, 'listings/band_detail.html', {'band': band})
 
 def band_create(request):
-    form = BandForm()
+    if request.method == 'POST':
+        form = BandForm(request.POST)
+        if form.is_valid():
+            band = form.save()
+            return redirect('band-detail', band.id)
+    else:
+        form = BandForm()
     return render(request, 'listings/band_create.html', {'form': form})
 
 def listing_list(request):
