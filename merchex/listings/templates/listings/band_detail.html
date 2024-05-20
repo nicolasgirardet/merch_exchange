@@ -10,5 +10,15 @@
     {% endif %}
    </ul>
    <p>{{ band.biography }}</p>
+   {% if band.listing_set.all %}
+   <p>Produits du merchandising :</p>
+   <ul>
+   {% for listing in band.listing_set.all %}
+   <li>{{ listing.title }}</li>
+   {% endfor %}
+    </ul>
+    {% else %}
+    <p>Malheureusement, encore aucun produit n'est disponible pour cet artiste.</p>
+   {% endif %}
    <a href="{% url 'band-list' %}">Retour à tous les groupes</a>
 {% endblock %}
